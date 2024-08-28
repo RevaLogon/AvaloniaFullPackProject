@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:GetStartedApp.ViewModels"
+        x:Class="GetStartedApp.Views.MainWindow"
+        Title="MainWindow"
+        Width="800"
+        Height="600"
+        x:DataType="vm:MainViewModel">
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <!-- Named TextBoxes for easier access in tests -->
+            <TextBox x:Name="FirstNumberTextBox" Text="{Binding FirstNumber}" Width="100" Margin="5" />
+            <TextBox x:Name="SecondNumberTextBox" Text="{Binding SecondNumber}" Width="100" Margin="5" />
+            
+            <!-- Named Buttons for easier access in tests -->
+            <Button x:Name="AddButton" Command="{Binding AddCommand}" Content="Add" Margin="5" />
+            <Button x:Name="SubtractButton" Command="{Binding SubtractCommand}" Content="Subtract" Margin="5" />
+            <Button x:Name="MultiplyButton" Command="{Binding MultiplyCommand}" Content="Multiply" Margin="5" />
+            <Button x:Name="DivideButton" Command="{Binding DivideCommand}" Content="Divide" Margin="5" />
+            <Button x:Name="ClearButton" Command="{Binding ClearCommand}" Content="Clear" Margin="5" />
+            <Button x:Name="AddLineButton" Command="{Binding AddLineCommand}" Content="Add Line" Margin="5" />
+        </StackPanel>
+
+        <!-- ItemsControl for displaying calculation results -->
+        <ItemsControl x:Name="CalculationLinesControl" Grid.Row="1"
+                      ItemsSource="{Binding CalculationLines}"
+                      Margin="10">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:CalculationLine">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstNumber}" Margin="5" />
+                        <TextBlock Text="{Binding SecondNumber}" Margin="5" />
+                        <TextBlock Text="{Binding Result}" Margin="5" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>
